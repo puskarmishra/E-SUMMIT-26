@@ -16,7 +16,7 @@ const Navbar = () => {
         window.addEventListener('scroll', handleScroll);
 
         // Timer Logic
-        const targetDate = new Date("2026-03-23T00:00:00").getTime();
+        const targetDate = new Date("2026-03-23T12:00:00").getTime();
         const interval = setInterval(() => {
             const now = new Date().getTime();
             const distance = targetDate - now;
@@ -108,8 +108,8 @@ const Navbar = () => {
                         <button
                             onClick={toggleAudio}
                             className={`group relative w-12 h-12 rounded-full border flex items-center justify-center transition-all duration-500 z-20 ${isPlaying
-                                    ? 'border-desi-gold bg-desi-gold/10'
-                                    : 'border-white/20 bg-white/5 hover:bg-white/10'
+                                ? 'border-desi-gold bg-desi-gold/10'
+                                : 'border-white/20 bg-white/5 hover:bg-white/10'
                                 }`}
                         >
                             {/* Pulse Effect */}

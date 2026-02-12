@@ -91,7 +91,7 @@ const Hero = () => {
                         transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
                         className="font-western text-[5rem] md:text-[9rem] lg:text-[11rem] leading-[0.85] text-transparent bg-clip-text bg-gradient-to-b from-[#4d1f1f] to-[#1a0505] absolute top-4 left-4 z-0 select-none blur-sm whitespace-nowrap"
                     >
-                        E-SUMMIT
+                        E-SUMMIT'26
                     </motion.h1>
 
                     {/* Main Layer */}
@@ -101,7 +101,7 @@ const Hero = () => {
                         transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
                         className="font-western text-[5rem] md:text-[9rem] lg:text-[11rem] leading-[0.85] text-transparent bg-clip-text bg-gradient-to-b from-[#fff0d1] via-[#ffcc66] to-[#d4af37] z-10 relative drop-shadow-2xl whitespace-nowrap"
                     >
-                        E-SUMMIT
+                        E-SUMMIT<span className="font-serif text-[#ffd700] mx-[2px] inline-block -translate-y-4 md:-translate-y-8 drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)]">’</span>26
                     </motion.h1>
 
                     {/* Subtitle Below E-SUMMIT */}
@@ -178,9 +178,9 @@ const Hero = () => {
                         </div>
 
                         {/* Year Badge */}
-                        <div className="mt-6 px-6 py-1 bg-[#2b0a0a] border border-desi-gold/30 rounded-full">
+                        {/* <div className="mt-6 px-6 py-1 bg-[#2b0a0a] border border-desi-gold/30 rounded-full">
                             <span className="font-body text-white/80 text-sm tracking-[0.3em]">2026</span>
-                        </div>
+                        </div> */}
                     </div>
                 </motion.div>
             </motion.div>

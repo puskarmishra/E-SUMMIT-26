@@ -40,8 +40,8 @@ const Hero = () => {
         >
             {/* 1. Dynamic Background Layer */}
             <motion.div
-                style={{ x: bgX, y: bgY, scale }}
-                className="absolute inset-0 z-0"
+                style={{ x: bgX, y: bgY }}
+                className="absolute inset-0 z-0 will-change-transform"
             >
                 {/* Rich Gradient Base */}
                 <div className="absolute inset-0 bg-gradient-to-br from-[#2b0a0a] via-[#4a1212] to-[#1a0505]" />
@@ -57,7 +57,6 @@ const Hero = () => {
 
                 {/* Abstract Geometric Shapes (Desi Patterns simplified) */}
                 <div className="absolute top-0 right-0 w-[50vw] h-[50vw] bg-desi-saffron/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2" />
-                <div className="absolute bottom-0 left-0 w-[40vw] h-[40vw] bg-desi-red/10 rounded-full blur-[80px] translate-y-1/3 -translate-x-1/3" />
 
                 {/* Subtle Grain Texture */}
                 <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-10 mix-blend-overlay" />
@@ -186,83 +185,86 @@ const Hero = () => {
             </motion.div>
 
             {/* Register Button - Bottom Right */}
-            {/* Register Button - Bottom Right */}
             <motion.div
-                initial={{ opacity: 0, x: 50, rotate: 10 }}
-                animate={{ opacity: 1, x: 0, rotate: -5 }}
-                transition={{ delay: 1, type: "spring", stiffness: 100 }}
+                style={{ opacity }}
                 className="absolute bottom-6 right-6 md:bottom-10 md:right-10 z-50 pointer-events-auto"
             >
-                <motion.button
-                    whileHover="hover"
-                    whileTap="tap"
-                    initial="initial"
-                    className="relative w-64 h-24 md:w-80 md:h-32 flex items-center justify-center group"
+                <motion.div
+                    initial={{ opacity: 0, x: 50, rotate: 10 }}
+                    animate={{ opacity: 1, x: 0, rotate: -5 }}
+                    transition={{ delay: 1, type: "spring", stiffness: 100 }}
                 >
-                    {/* 1. Base Dark Layer */}
-                    <img
-                        src="/mobileRegisterBtn.svg"
-                        alt="Register Background"
-                        className="absolute inset-0 w-full h-full object-contain z-0 opacity-80"
-                    />
-
-                    {/* 2. LIVE: Liquid Gold Flow Effect (Contained in Shape) */}
-                    <motion.div
-                        className="absolute inset-0 z-10 opacity-60 mix-blend-overlay"
-                        style={{
-                            maskImage: "url(/mobileRegisterBtn.svg)",
-                            maskSize: "contain",
-                            maskRepeat: "no-repeat",
-                            maskPosition: "center",
-                            WebkitMaskImage: "url(/mobileRegisterBtn.svg)",
-                            WebkitMaskSize: "contain",
-                            WebkitMaskRepeat: "no-repeat",
-                            WebkitMaskPosition: "center"
-                        }}
+                    <motion.button
+                        whileHover="hover"
+                        whileTap="tap"
+                        initial="initial"
+                        className="relative w-64 h-24 md:w-80 md:h-32 flex items-center justify-center group"
                     >
-                        <motion.div
-                            className="w-[200%] h-full bg-gradient-to-r from-transparent via-desi-gold to-transparent"
-                            animate={{ x: ["-100%", "100%"] }}
-                            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                        {/* 1. Base Dark Layer */}
+                        <img
+                            src="/mobileRegisterBtn.svg"
+                            alt="Register Background"
+                            className="absolute inset-0 w-full h-full object-contain z-0 opacity-80"
                         />
-                    </motion.div>
 
-                    {/* 3. Hover Shine Effect (Restored from previous version) */}
-                    <motion.div
-                        variants={{
-                            hover: { x: ["100%", "-100%"], opacity: [0, 1, 0] }
-                        }}
-                        transition={{ duration: 0.6, ease: "linear" }}
-                        className="absolute inset-0 w-full h-full z-20 pointer-events-none overflow-hidden"
-                        style={{
-                            maskImage: "url(/mobileRegisterBtn.svg)",
-                            maskSize: "contain",
-                            maskRepeat: "no-repeat",
-                            maskPosition: "center",
-                            WebkitMaskImage: "url(/mobileRegisterBtn.svg)",
-                            WebkitMaskSize: "contain",
-                            WebkitMaskRepeat: "no-repeat",
-                            WebkitMaskPosition: "center"
-                        }}
-                    >
-                        <div className="w-1/2 h-full bg-white/40 skew-x-[-20deg] blur-md absolute top-0 -left-1/2" />
-                    </motion.div>
+                        {/* 2. LIVE: Liquid Gold Flow Effect (Contained in Shape) */}
+                        <motion.div
+                            className="absolute inset-0 z-10 opacity-60 mix-blend-overlay"
+                            style={{
+                                maskImage: "url(/mobileRegisterBtn.svg)",
+                                maskSize: "contain",
+                                maskRepeat: "no-repeat",
+                                maskPosition: "center",
+                                WebkitMaskImage: "url(/mobileRegisterBtn.svg)",
+                                WebkitMaskSize: "contain",
+                                WebkitMaskRepeat: "no-repeat",
+                                WebkitMaskPosition: "center"
+                            }}
+                        >
+                            <motion.div
+                                className="w-[200%] h-full bg-gradient-to-r from-transparent via-desi-gold to-transparent"
+                                animate={{ x: ["-100%", "100%"] }}
+                                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                            />
+                        </motion.div>
 
-                    {/* 4. Text Overlay (Restored simple style) */}
-                    <motion.span
-                        className="relative z-30 font-tech text-white text-2xl md:text-3xl tracking-widest drop-shadow-md select-none flex gap-2"
-                        variants={{
-                            hover: { scale: 1.1, textShadow: "0 0 15px rgba(255,215,0,0.8)" },
-                            tap: { scale: 0.95 }
-                        }}
-                    >
-                        REGISTER
-                    </motion.span>
-                </motion.button>
+                        {/* 3. Hover Shine Effect (Restored from previous version) */}
+                        <motion.div
+                            variants={{
+                                hover: { x: ["100%", "-100%"], opacity: [0, 1, 0] }
+                            }}
+                            transition={{ duration: 0.6, ease: "linear" }}
+                            className="absolute inset-0 w-full h-full z-20 pointer-events-none overflow-hidden"
+                            style={{
+                                maskImage: "url(/mobileRegisterBtn.svg)",
+                                maskSize: "contain",
+                                maskRepeat: "no-repeat",
+                                maskPosition: "center",
+                                WebkitMaskImage: "url(/mobileRegisterBtn.svg)",
+                                WebkitMaskSize: "contain",
+                                WebkitMaskRepeat: "no-repeat",
+                                WebkitMaskPosition: "center"
+                            }}
+                        >
+                            <div className="w-1/2 h-full bg-white/40 skew-x-[-20deg] blur-md absolute top-0 -left-1/2" />
+                        </motion.div>
+
+                        {/* 4. Text Overlay (Restored simple style) */}
+                        <motion.span
+                            className="relative z-30 font-tech text-white text-2xl md:text-3xl tracking-widest drop-shadow-md select-none flex gap-2"
+                            variants={{
+                                hover: { scale: 1.1, textShadow: "0 0 15px rgba(255,215,0,0.8)" },
+                                tap: { scale: 0.95 }
+                            }}
+                        >
+                            REGISTER
+                        </motion.span>
+                    </motion.button>
+                </motion.div>
             </motion.div>
 
-            {/* 3. Bottom Gradient & Texture */}
-            <div className="absolute bottom-0 w-full h-32 bg-gradient-to-t from-[#0f0404] to-transparent pointer-events-none z-10"></div>
+            {/* 3. Bottom Gradient & Texture Fade for Continuity */}
+            <div className="absolute bottom-0 w-full h-64 bg-gradient-to-t from-[#1a0505] via-[#1a0505]/80 to-transparent pointer-events-none z-10"></div>
 
             {/* 4. Elegant Scroll Mouse */}
             <motion.div

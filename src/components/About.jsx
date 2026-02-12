@@ -10,8 +10,11 @@ const About = () => {
             {/* Shared Noise Texture */}
             <div className="absolute left-0 inset-0 bg-[url('/noise.svg')] opacity-10 mix-blend-overlay z-0" />
 
-            {/* Seamless Transition Overlay */}
+            {/* Seamless Transition Overlay - Top */}
             <div className="absolute top-0 w-full h-32 bg-gradient-to-b from-[#1a0505] to-transparent z-10 pointer-events-none" />
+
+            {/* Seamless Transition Overlay - Bottom */}
+            <div className="absolute left-0 bottom-0 w-full h-32 bg-gradient-to-t from-[#1a0505] to-transparent z-10 pointer-events-none" />
 
             {/* Background Gradients */}
             <div className="absolute left-0 top-0 right-0 w-[500px] h-[500px] bg-retro-primary/20 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2 pointer-events-none z-0"></div>

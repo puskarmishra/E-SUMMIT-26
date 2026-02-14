@@ -1,3 +1,9 @@
-<audio autoplay loop>
-  <source src="assets/trippystan-128kbps_sPutFAoa.mp3" type="audio/mpeg">
+<audio id="bgMusic" loop>
+  <source src="assets/sarangi-x-flute-drill-beat-prod-by-12-50-128kbps_hPEtQMLx.mp3" type="audio/mpeg">
 </audio>
+
+<script>
+window.addEventListener("click", function () {
+  document.getElementById("bgMusic").play();
+}, { once: true });
+</script>

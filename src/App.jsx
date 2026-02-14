@@ -1,11 +1,11 @@
 import React, { Suspense, lazy } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import Events from './components/Events';
 import LazyLoadSection from './components/LazyLoadSection';
 
 // Lazy Load Heavy Components
 const About = lazy(() => import('./components/About'));
-const Events = lazy(() => import('./components/Events'));
 const Contact = lazy(() => import('./components/Contact'));
 const Footer = lazy(() => import('./components/Footer'));
 
@@ -30,9 +30,9 @@ function App() {
           <About />
         </LazyLoadSection>
 
-        <LazyLoadSection placeholderHeight="400vh">
-          <Events />
-        </LazyLoadSection>
+
+        <Events />
+
 
         <LazyLoadSection placeholderHeight="100vh">
           <Contact />

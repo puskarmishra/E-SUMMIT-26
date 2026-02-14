@@ -27,6 +27,10 @@ const Footer = () => {
                             <div className="w-16 h-16 rounded-full border-2 border-white/20 bg-black flex items-center justify-center group hover:border-retro-primary transition-colors">
                                 <span className="font-display text-white text-3xl">MAIT</span>
                             </div>
+
+                            <div className="w-16 h-16 rounded-full border-2 border-white/20 bg-black flex items-center justify-center group hover:border-retro-primary transition-colors">
+                                <span className="font-display text-white text-3xl">MAIT</span>
+                            </div>
                         </div>
 
                         {/* Description */}

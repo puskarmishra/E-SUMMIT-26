@@ -1,7 +1,116 @@
-import React, { useRef } from 'react';
-import { motion, useTransform, useScroll, useMotionTemplate } from 'framer-motion';
+import React, { useRef, useState } from 'react';
+import { motion, useTransform, useScroll, useMotionTemplate, AnimatePresence } from 'framer-motion';
+import { ArrowLeft, Calendar, Trophy, Users, AlertCircle } from 'lucide-react';
 
-const EventCard = ({ event, index, total, scrollYProgress }) => {
+const EventPopup = ({ event, onClose }) => {
+    if (!event) return null;
+
+    return (
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-8"
+        >
+            {/* Main Content Container */}
+            <motion.div
+                initial={{ scale: 0.9, y: 50 }}
+                animate={{ scale: 1, y: 0 }}
+                exit={{ scale: 0.9, y: 50 }}
+                className="w-full max-w-6xl h-full max-h-[90vh] bg-[#1a0505] rounded-[2rem] border border-desi-gold/20 overflow-hidden relative flex flex-col md:flex-row shadow-2xl shadow-desi-gold/5"
+            >
+                {/* Back Button - Moved Inside Card */}
+                <div className="absolute top-4 left-4 z-50">
+                    <button
+                        onClick={onClose}
+                        className="group flex items-center gap-2 text-white/90 hover:text-white transition-colors bg-black/40 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 hover:bg-black/60 shadow-lg"
+                    >
+                        <ArrowLeft size={18} />
+                        <span className="font-oriental text-xs tracking-widest uppercase">Back</span>
+                    </button>
+                </div>
+                {/* Decorative Corners */}
+                <div className="absolute top-0 left-0 w-32 h-32 border-l-2 border-t-2 border-desi-gold/30 rounded-tl-[2rem] pointer-events-none" />
+                <div className="absolute bottom-0 right-0 w-32 h-32 border-r-2 border-b-2 border-desi-gold/30 rounded-br-[2rem] pointer-events-none" />
+
+                {/* Left Side: Visual / Title Header (Mobile: Top) */}
+                <div className={`relative w-full md:w-1/3 h-48 md:h-full bg-gradient-to-br ${event.color} overflow-hidden p-8 flex flex-col justify-end`}>
+                    <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-30 mix-blend-overlay" />
+                    <div className="relative z-10">
+                        <span className="inline-block px-3 py-1 bg-white/10 backdrop-blur-md rounded-full text-xs font-tech tracking-wider text-white/80 mb-4 border border-white/10">
+                            SEASON 2026
+                        </span>
+                        <h2 className="text-4xl md:text-6xl font-display text-white leading-none mb-2 drop-shadow-xl">
+                            {event.title}
+                        </h2>
+                        <p className="font-body text-white/80 text-lg">
+                            {event.desc}
+                        </p>
+                    </div>
+                </div>
+
+                {/* Right Side: Details Scrollable */}
+                <div className="flex-1 h-full overflow-y-auto custom-scrollbar bg-[#120505] relative">
+                    <div className="p-8 md:p-12 space-y-12">
+                        {/* About Section */}
+                        <section>
+                            <h3 className="text-2xl font-oriental text-desi-gold mb-4 flex items-center gap-3">
+                                <AlertCircle size={20} /> About The Event
+                            </h3>
+                            <p className="text-gray-300 font-body leading-relaxed text-lg">
+                                {event.fullDesc}
+                            </p>
+                        </section>
+
+                        {/* Grid Info */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div className="bg-white/5 p-6 rounded-xl border border-white/5">
+                                <h4 className="text-retro-primary font-tech tracking-wider mb-2 flex items-center gap-2">
+                                    <Trophy size={18} /> PRIZE POOL
+                                </h4>
+                                <p className="text-2xl text-white font-display tracking-wide">{event.prize}</p>
+                            </div>
+                            <div className="bg-white/5 p-6 rounded-xl border border-white/5">
+                                <h4 className="text-retro-primary font-tech tracking-wider mb-2 flex items-center gap-2">
+                                    <Users size={18} /> TEAM SIZE
+                                </h4>
+                                <p className="text-2xl text-white font-display tracking-wide">{event.teamSize}</p>
+                            </div>
+                        </div>
+
+                        {/* Rules Section */}
+                        <section>
+                            <h3 className="text-2xl font-oriental text-desi-gold mb-6">Rules & Regulations</h3>
+                            <ul className="space-y-4">
+                                {event.rules.map((rule, i) => (
+                                    <li key={i} className="flex items-start gap-4 text-gray-400 group">
+                                        <span className="w-6 h-6 rounded-full bg-white/5 flex items-center justify-center text-xs text-retro-accent border border-white/10 group-hover:border-retro-accent transition-colors shrink-0 mt-0.5">
+                                            {i + 1}
+                                        </span>
+                                        <span className="font-body leading-relaxed group-hover:text-gray-200 transition-colors">{rule}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </section>
+
+                        {/* Footer Action */}
+                        <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row gap-6 items-center justify-between">
+                            <div className="flex flex-col">
+                                <span className="text-sm text-gray-500 font-tech uppercase tracking-wider mb-1">Registration Closes</span>
+                                <span className="text-white font-body font-semibold flex items-center gap-2"><Calendar size={16} className="text-retro-primary" /> 20th March, 2026</span>
+                            </div>
+                            <button className="px-8 py-4 bg-gradient-to-r from-retro-primary to-retro-secondary text-white font-bold font-tech tracking-widest rounded-lg hover:scale-105 transition-transform shadow-lg shadow-retro-primary/20">
+                                REGISTER NOW
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </motion.div>
+        </motion.div>
+    );
+};
+
+const EventCard = ({ event, index, total, scrollYProgress, onSelect }) => {
     // 1. Calculate Activation Timeline
     const step = 1 / (total - 1);
     const center = step * index;
@@ -76,7 +185,10 @@ const EventCard = ({ event, index, total, scrollYProgress }) => {
 
                         {/* CTA - Reveals on Hover */}
                         <div className="mt-6 flex items-center gap-3 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-75">
-                            <button className="px-6 py-2.5 bg-white text-black text-sm font-bold rounded-full hover:bg-retro-accent transition-colors shadow-lg shadow-white/5">
+                            <button
+                                onClick={() => onSelect(event)}
+                                className="px-6 py-2.5 bg-white text-black text-sm font-bold rounded-full hover:bg-retro-accent transition-colors shadow-lg shadow-white/5"
+                            >
                                 Explore Event
                             </button>
                         </div>
@@ -92,36 +204,79 @@ const EventCard = ({ event, index, total, scrollYProgress }) => {
 
 const Events = () => {
     const targetRef = useRef(null);
+    const [selectedEvent, setSelectedEvent] = useState(null);
     const { scrollYProgress } = useScroll({
         target: targetRef,
     });
 
     // --- Responsive Configuration ---
-    // Defined as CSS variables in the container style to keep JS and CSS synced.
-    // Desktop: 60vh width, 3rem gap. Mobile: 85vw width, 1.5rem gap.
-
-    // Transform Mapper: Maps 0-1 scroll progress to 0-N index steps
     const eventsCount = 6;
-    const scrollIndex = useTransform(scrollYProgress, [0, 1], [0, eventsCount - 1]);
-
-    // Dynamic X Transform using CSS Calc + Motion Value
-    // Logic: -1 * scrollIndex * (cardWidth + gap)
+    // Map scroll progress 0-0.9 to the full index range, leaving the last 10% as a buffer where the last card stays visible.
+    const scrollIndex = useTransform(scrollYProgress, [0, 0.9], [0, eventsCount - 1]);
     const x = useMotionTemplate`calc(${scrollIndex} * -1 * (var(--card-width) + var(--gap)))`;
 
     const events = [
-        { title: "HACKATHON", desc: "24h of pure code & chaos.", color: "from-retro-purple to-indigo-900" },
-        { title: "SHARK TANK", desc: "Pitch your ideas to investors.", color: "from-retro-primary to-rose-900" },
-        { title: "IPL AUCTION", desc: "Build your dream team.", color: "from-retro-accent to-amber-900" },
-        { title: "ESPORTS", desc: "Battle for ultimate glory.", color: "from-emerald-600 to-green-950" },
-        { title: "ROBOWARS", desc: "Metal on metal showdown.", color: "from-slate-500 to-gray-900" },
-        { title: "TRADING", desc: "High stakes stock simulation.", color: "from-sky-600 to-blue-950" },
+        {
+            title: "HACKATHON",
+            desc: "24h of pure code & chaos.",
+            fullDesc: "Unleash your coding prowess in this grueling 24-hour marathon. Build innovative solutions to real-world problems under intense time pressure.",
+            color: "from-retro-purple to-indigo-900",
+            prize: "₹50,000",
+            teamSize: "3-4 Members",
+            rules: ["Code must be written entirely during the event.", "Pre-built libraries are allowed, but no pre-built projects.", "Teams must present their final prototype to judges."]
+        },
+        {
+            title: "SHARK TANK",
+            desc: "Pitch your ideas to investors.",
+            fullDesc: "Got a billion-dollar idea? Step into the tank and face potential investors. Convince them that your startup is the next big thing.",
+            color: "from-retro-primary to-rose-900",
+            prize: "Funding + ₹30,000",
+            teamSize: "1-3 Members",
+            rules: ["Pitch deck must be under 10 slides.", "5 minutes for pitch, 5 minutes for Q&A.", "Prototypes or MVPs are highly encouraged."]
+        },
+        {
+            title: "IPL AUCTION",
+            desc: "Build your dream team.",
+            fullDesc: "Experience the thrill of the auction room. Manage your budget, bid strategically, and assemble the strongest cricket team.",
+            color: "from-retro-accent to-amber-900",
+            prize: "₹20,000",
+            teamSize: "2-3 Members",
+            rules: ["Each team starts with a fixed virtual budget.", "Unsold players go to the acceleration round.", "Team with the highest rating points wins."]
+        },
+        {
+            title: "ESPORTS",
+            desc: "Battle for ultimate glory.",
+            fullDesc: "Compete in top-tier titles like Valorant and BGMI. showcase your reflexes, strategy, and teamwork on the big stage.",
+            color: "from-emerald-600 to-green-950",
+            prize: "₹25,000",
+            teamSize: "5 Members",
+            rules: ["Bring your own peripherals (Mouse/Keyboard allowed).", "Standard tournament draft rules apply.", "Toxic behavior leads to immediate disqualification."]
+        },
+        {
+            title: "ROBOWARS",
+            desc: "Metal on metal showdown.",
+            fullDesc: "The ultimate destruction derby. Build a combat robot and destroy your opponents in the arena. Sparks will fly!",
+            color: "from-slate-500 to-gray-900",
+            prize: "₹40,000",
+            teamSize: "4-6 Members",
+            rules: ["Bot weight limit: 15kg / 60kg categories.", "No liquid projectiles or EMP devices.", "Safety inspection is mandatory before matches."]
+        },
+        {
+            title: "TRADING",
+            desc: "High stakes stock simulation.",
+            fullDesc: "Master the markets in this real-time stock trading simulation. Analyze trends, make moves, and maximize your portfolio value.",
+            color: "from-sky-600 to-blue-950",
+            prize: "₹15,000",
+            teamSize: "Solo / Duo",
+            rules: ["Initial virtual capital: ₹10,00,000", "Market manipulation exploits are banned.", "Portfolio value at market close determines the winner."]
+        },
     ];
 
     return (
         <section
             ref={targetRef}
             id="events"
-            className="relative h-[400vh] bg-[#1a0505]"
+            className="relative h-[600vh] bg-[#1a0505]"
             style={{
                 // Responsive Variables
                 "--card-width": "60vh",
@@ -148,6 +303,13 @@ const Events = () => {
                     }
                 }
              `}</style>
+
+            {/* Event Popup Overlay */}
+            <AnimatePresence>
+                {selectedEvent && (
+                    <EventPopup event={selectedEvent} onClose={() => setSelectedEvent(null)} />
+                )}
+            </AnimatePresence>
 
             <div className="sticky top-0 flex h-screen items-center overflow-hidden perspective-1000 events-track">
                 {/* Shared Backgrounds */}
@@ -185,6 +347,7 @@ const Events = () => {
                                 index={i}
                                 total={events.length}
                                 scrollYProgress={scrollYProgress}
+                                onSelect={setSelectedEvent}
                             />
                         ))}
                     </motion.div>
